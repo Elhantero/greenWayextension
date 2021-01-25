@@ -55,12 +55,43 @@ const rightIds = [
 
 ];
 
-const variants = document.getElementsByTagName("li");
-Array.from(variants).forEach((el => {
-  if(rightIds.includes(String(el.id))) {
-    el.style.backgroundColor = "gold";
-  }
-}));
+const answeringQuestionsBlock = () => {
+  let timer = 2000;
+  const questions = document.getElementsByClassName('tab-pane');
+  const qusetionsCount = Array.from(questions).length;
+  Array.from(questions).forEach(((question, idx) => {
+    const answers = question.getElementsByTagName("li");
+    setTimeout(() => {
+      Array.from(answers).forEach((el => {
+        if (rightIds.includes(String(el.id))) {
+          el.style.backgroundColor = "gold";
+          el.click();
+        }
+      }));
+      if (idx === qusetionsCount - 1) {
+        setTimeout(() => {
+          console.log('done');
+          const reset = document.getElementsByClassName('btn btn-white btn-md button_reset_close');
+          if(reset[0]) {
+            timer = 2000;
+            reset[0].click();
+          }
+        }, 5000);
+      }
+    }, timer);
+    timer += 1000;
+  }))
+}
+
+answeringQuestionsBlock();
+
+
+// const variants = document.getElementsByTagName("li");
+// Array.from(variants).forEach((el => {
+//   if(rightIds.includes(String(el.id))) {
+//     el.style.backgroundColor = "gold";
+//   }
+// }));
 
 // async function start () {
 //
